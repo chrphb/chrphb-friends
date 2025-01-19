@@ -1,0 +1,9 @@
+project:
+  output-dir: _docs
+
+website:
+  title: "chrphb-friends"
+  site-url: "https://chrphb.github.io/chrphb-friends"
+  description: "Repository Code to Manage My Friends"
+  repo-branch: main
+  repo-url: "https://github.com/chrphb/chrphb-friends"
