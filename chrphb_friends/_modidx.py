@@ -13,4 +13,5 @@ d = { 'settings': { 'branch': 'main',
                                      'chrphb_friends.core.Repository.add_obj': ('core.html#repository.add_obj', 'chrphb_friends/core.py'),
                                      'chrphb_friends.core.Repository.create': ('core.html#repository.create', 'chrphb_friends/core.py'),
                                      'chrphb_friends.core.Repository.friends': ('core.html#repository.friends', 'chrphb_friends/core.py'),
+                                     'chrphb_friends.core.Repository.remove': ('core.html#repository.remove', 'chrphb_friends/core.py'),
                                      'chrphb_friends.core.parsed_date': ('core.html#parsed_date', 'chrphb_friends/core.py')}}}

@@ -32,7 +32,7 @@ class Friend:
 from fastsql import *
 import sqlalchemy as sa
 
-# %% ../nbs/00_core.ipynb 19
+# %% ../nbs/00_core.ipynb 21
 class Repository:
     """Repository Service for the Friend dataclass. 
     The repository implementation is based on SQLLite with a file storage"""
@@ -55,6 +55,13 @@ class Repository:
         self.db = Database(uri)
         self.store = self.db.create(Friend, pk='id')
 
+    def remove(self, f:Friend):
+        """
+        Removes a Friend from the database
+        """
+        self.store.delete(f.id)
+        print(f.id, "deleted")
+    
     def add_obj(self, f:Friend):
         random_uuid = uuid4()
         """

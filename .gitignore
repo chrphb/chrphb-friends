@@ -1,5 +1,7 @@
+_personal/
 _docs/
 _proc/
+*.db
 
 *.bak
 .gitattributes
