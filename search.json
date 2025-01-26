@@ -1,0 +1,52 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "chrphb-friends",
+    "section": "",
+    "text": "This library will enable to manage a list of friends, relatives, contacts.",
+    "crumbs": [
+      "chrphb-friends"
+    ]
+  },
+  {
+    "objectID": "index.html#developer-guide",
+    "href": "index.html#developer-guide",
+    "title": "chrphb-friends",
+    "section": "Developer Guide",
+    "text": "Developer Guide\nIf you are new to using nbdev here are some useful pointers to get you started.\n\nInstall chrphb_friends in Development mode\n# make sure chrphb_friends package is installed in development mode\n$ pip install -e .\n\n# make changes under nbs/ directory\n# ...\n\n# compile to have changes apply to chrphb_friends\n$ nbdev_prepare",
+    "crumbs": [
+      "chrphb-friends"
+    ]
+  },
+  {
+    "objectID": "index.html#usage",
+    "href": "index.html#usage",
+    "title": "chrphb-friends",
+    "section": "Usage",
+    "text": "Usage\n\nInstallation\nInstall latest from the GitHub repository:\n$ pip install git+https://github.com/chrphb/chrphb-friends.git\nor from conda (not yet available)\n$ conda install -c chrphb chrphb_friends\nor from pypi\n$ pip install chrphb_friends\n\n\nDocumentation\nDocumentation can be found hosted on this GitHub repository’s pages. Additionally you can find package manager specific guidelines on conda and pypi respectively.",
+    "crumbs": [
+      "chrphb-friends"
+    ]
+  },
+  {
+    "objectID": "index.html#how-to-use",
+    "href": "index.html#how-to-use",
+    "title": "chrphb-friends",
+    "section": "How to use",
+    "text": "How to use\nFill me in please! Don’t forget code examples:\n\n1+1\n\n\nfrom chrphb_friends.core import Friend\n\n\nf1 = Friend('1','doo', 'john', 'john@doo.com', '00000000', 'linkedin', 'twitter')\nf1\n\n\nfrom chrphb_friends.core import Repository\n\n\nrepo = Repository('friends_v1.db')\nrepo\n\n\nrepo.add('doo', 'john', 'john@doo.com', '0000000000', 'linkedin', 'twitter')\n\nNow, let’s retrieve my friends:\n\nrepo.friends()\n\n\nrepo.add_obj(f1)\n\nLet’s remove the previous object.\n\nrepo.remove_obj(f1)",
+    "crumbs": [
+      "chrphb-friends"
+    ]
+  },
+  {
+    "objectID": "core.html",
+    "href": "core.html",
+    "title": "core",
+    "section": "",
+    "text": "We write source code first, and then tests come after. The tests serve as both a means to confirm that the code works and also serves as working examples. The first exported function, parsed_date, is an example of this pattern.\n\nsource\n\nparsed_date\n\n parsed_date (s:str)\n\nConvert s to a datetime\n\nparsed_date('2pm')\n\n\nisinstance(date.fromtimestamp(0), date)\n\nThe Friend dataclass : this is our main business object.\nNote that I use Python dataclass to define this class.\n\nsource\n\n\nFriend\n\n Friend (id:str, family_name:str, first_name:str, email:str, phone:str,\n         linkedin:str, twitter:str)\n\nClass for keeping track of a friend item.\n\nf1 = Friend(3, 'doo', 'john', 'john@doo.com', '0000000000', 'linkedin', 'twitter')\nf1\n\n\ndb = Database(\"sqlite:///:memory:\")\n\n\nfriends1 = db.create(Friend, pk='id')\n\n\nprint(db.schema())\n\n\nfriends1.exists()\n\n\nfriends1.insert(f1)\n\n\nfriends1()\n\n\nfriends1(where=\"family_name = :my\", my=\"doo\")\n\nLet’s try to remove this object from the database.\n\nfriends1.delete(f1.id)\n\nAfter these tests, let’s build our Repository service class.\n\nsource\n\n\nRepository\n\n Repository (_db_file_path:str)\n\nRepository Service for the Friend dataclass. The repository implementation is based on SQLLite with a file storage\nLet’s have an example here.\nFirst, we create the repository.\n\n! rm friends_v1.db\n\n\nrepo = Repository('friends_v1.db')\nrepo\n\nYou need to call the create method.\n\nrepo.add('doo', 'john', 'john@doo.com', '0000000000', 'linkedin', 'twitter')\n\nNow, let’s retrieve my friends:\n\nrepo.friends()",
+    "crumbs": [
+      "core"
+    ]
+  }
+]
