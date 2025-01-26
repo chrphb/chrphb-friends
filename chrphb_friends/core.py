@@ -55,7 +55,14 @@ class Repository:
         self.db = Database(uri)
         self.store = self.db.create(Friend, pk='id')
 
-    def remove(self, f:Friend):
+    def remove(self, id:str):
+        """
+        Removes a Friend with id from the database
+        """
+        self.store.delete(id)
+        print("deleted")
+
+    def remove_obj(self, f:Friend):
         """
         Removes a Friend from the database
         """
