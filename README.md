@@ -35,7 +35,8 @@ Install latest from the GitHub
 $ pip install git+https://github.com/chrphb/chrphb-friends.git
 ```
 
-or from [conda](https://anaconda.org/chrphb/chrphb-friends)
+or from [conda](https://anaconda.org/chrphb/chrphb-friends) (not yet
+available)
 
 ``` sh
 $ conda install -c chrphb chrphb_friends
@@ -98,5 +99,152 @@ Now, let’s retrieve my friends:
 repo.friends()
 ```
 
-    [Friend(id='e4977cf1-cc3c-4425-83c1-e25b98891896', family_name='doo', first_name='john', email='john@doo.com', phone='0000000000', linkedin='linkedin', twitter='twitter'),
-     Friend(id='868dff57-6db3-43e6-a10f-d89353a833b2', family_name='doo', first_name='john', email='john@doo.com', phone='0000000000', linkedin='linkedin', twitter='twitter')]
+    [Friend(id='16880b58-262a-4bf3-9bb6-cc74cc900d7b', family_name='doo', first_name='john', email='john@doo.com', phone='0000000000', linkedin='linkedin', twitter='twitter'),
+     Friend(id='6e20253b-9436-4e6a-9b38-08454c2b756b', family_name='doo', first_name='john', email='john@doo.com', phone='0000000000', linkedin='linkedin', twitter='twitter'),
+     Friend(id='4ba834d6-7d06-40ea-bc93-7d81b4af4ce6', family_name='doo', first_name='john', email='john@doo.com', phone='0000000000', linkedin='linkedin', twitter='twitter'),
+     Friend(id='1', family_name='doo', first_name='john', email='john@doo.com', phone='00000000', linkedin='linkedin', twitter='twitter'),
+     Friend(id='cf2479a9-a37f-4276-b002-e6d8a7253635', family_name='doo', first_name='john', email='john@doo.com', phone='0000000000', linkedin='linkedin', twitter='twitter')]
+
+``` python
+repo.add_obj(f1)
+```
+
+    IntegrityError: (sqlite3.IntegrityError) UNIQUE constraint failed: friend.id
+    [SQL: INSERT INTO friend (id, family_name, first_name, email, phone, linkedin, twitter) VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING id, family_name, first_name, email, phone, linkedin, twitter]
+    [parameters: ('1', 'doo', 'john', 'john@doo.com', '00000000', 'linkedin', 'twitter')]
+    (Background on this error at: https://sqlalche.me/e/20/gkpj)
+    [0;31m---------------------------------------------------------------------------[0m
+    [0;31mIntegrityError[0m                            Traceback (most recent call last)
+    File [0;32m~/.pyenv/versions/3.13.1/envs/nbdev313/lib/python3.13/site-packages/sqlalchemy/engine/base.py:1967[0m, in [0;36mConnection._exec_single_context[0;34m(self, dialect, context, statement, parameters)[0m
+    [1;32m   1966[0m     [38;5;28;01mif[39;00m [38;5;129;01mnot[39;00m evt_handled:
+    [0;32m-> 1967[0m         [38;5;28;43mself[39;49m[38;5;241;43m.[39;49m[43mdialect[49m[38;5;241;43m.[39;49m[43mdo_execute[49m[43m([49m
+    [1;32m   1968[0m [43m            [49m[43mcursor[49m[43m,[49m[43m [49m[43mstr_statement[49m[43m,[49m[43m [49m[43meffective_parameters[49m[43m,[49m[43m [49m[43mcontext[49m
+    [1;32m   1969[0m [43m        [49m[43m)[49m
+    [1;32m   1971[0m [38;5;28;01mif[39;00m [38;5;28mself[39m[38;5;241m.[39m_has_events [38;5;129;01mor[39;00m [38;5;28mself[39m[38;5;241m.[39mengine[38;5;241m.[39m_has_events:
+
+    File [0;32m~/.pyenv/versions/3.13.1/envs/nbdev313/lib/python3.13/site-packages/sqlalchemy/engine/default.py:941[0m, in [0;36mDefaultDialect.do_execute[0;34m(self, cursor, statement, parameters, context)[0m
+    [1;32m    940[0m [38;5;28;01mdef[39;00m [38;5;21mdo_execute[39m([38;5;28mself[39m, cursor, statement, parameters, context[38;5;241m=[39m[38;5;28;01mNone[39;00m):
+    [0;32m--> 941[0m     [43mcursor[49m[38;5;241;43m.[39;49m[43mexecute[49m[43m([49m[43mstatement[49m[43m,[49m[43m [49m[43mparameters[49m[43m)[49m
+
+    [0;31mIntegrityError[0m: UNIQUE constraint failed: friend.id
+
+    The above exception was the direct cause of the following exception:
+
+    [0;31mIntegrityError[0m                            Traceback (most recent call last)
+    Cell [0;32mIn[8], line 1[0m
+    [0;32m----> 1[0m [43mrepo[49m[38;5;241;43m.[39;49m[43madd_obj[49m[43m([49m[43mf1[49m[43m)[49m
+
+    File [0;32m~/ws/dev/friends/chrphb_friends/core.py:70[0m, in [0;36mRepository.add_obj[0;34m(self, f)[0m
+    [1;32m     66[0m random_uuid [38;5;241m=[39m uuid4()
+    [1;32m     67[0m [38;5;250m[39m[38;5;124;03m"""[39;00m
+    [1;32m     68[0m [38;5;124;03mAdds a Friend object to the repository[39;00m
+    [1;32m     69[0m [38;5;124;03m"""[39;00m
+    [0;32m---> 70[0m [38;5;28;43mself[39;49m[38;5;241;43m.[39;49m[43mstore[49m[38;5;241;43m.[39;49m[43minsert[49m[43m([49m[43mf[49m[43m)[49m
+
+    File [0;32m~/.pyenv/versions/3.13.1/envs/nbdev313/lib/python3.13/site-packages/fastsql/core.py:92[0m, in [0;36minsert[0;34m(self, obj)[0m
+    [1;32m     90[0m [38;5;124m"[39m[38;5;124mInsert an object into this table, and return it[39m[38;5;124m"[39m
+    [1;32m     91[0m d [38;5;241m=[39m {[38;5;241m*[39m[38;5;241m*[39masdict(obj), [38;5;241m*[39m[38;5;241m*[39m[38;5;28mself[39m[38;5;241m.[39mxtra_id}
+    [0;32m---> 92[0m result [38;5;241m=[39m [38;5;28;43mself[39;49m[38;5;241;43m.[39;49m[43mconn[49m[38;5;241;43m.[39;49m[43mexecute[49m[43m([49m[43msa[49m[38;5;241;43m.[39;49m[43minsert[49m[43m([49m[38;5;28;43mself[39;49m[38;5;241;43m.[39;49m[43mtable[49m[43m)[49m[38;5;241;43m.[39;49m[43mvalues[49m[43m([49m[38;5;241;43m*[39;49m[38;5;241;43m*[39;49m[43md[49m[43m)[49m[38;5;241;43m.[39;49m[43mreturning[49m[43m([49m[38;5;241;43m*[39;49m[38;5;28;43mself[39;49m[38;5;241;43m.[39;49m[43mtable[49m[38;5;241;43m.[39;49m[43mcolumns[49m[43m)[49m[43m)[49m
+    [1;32m     93[0m row [38;5;241m=[39m result[38;5;241m.[39mone()  [38;5;66;03m# Consume the result set[39;00m
+    [1;32m     94[0m [38;5;28mself[39m[38;5;241m.[39mconn[38;5;241m.[39mcommit()
+
+    File [0;32m~/.pyenv/versions/3.13.1/envs/nbdev313/lib/python3.13/site-packages/sqlalchemy/engine/base.py:1418[0m, in [0;36mConnection.execute[0;34m(self, statement, parameters, execution_options)[0m
+    [1;32m   1416[0m     [38;5;28;01mraise[39;00m exc[38;5;241m.[39mObjectNotExecutableError(statement) [38;5;28;01mfrom[39;00m [38;5;21;01merr[39;00m
+    [1;32m   1417[0m [38;5;28;01melse[39;00m:
+    [0;32m-> 1418[0m     [38;5;28;01mreturn[39;00m [43mmeth[49m[43m([49m
+    [1;32m   1419[0m [43m        [49m[38;5;28;43mself[39;49m[43m,[49m
+    [1;32m   1420[0m [43m        [49m[43mdistilled_parameters[49m[43m,[49m
+    [1;32m   1421[0m [43m        [49m[43mexecution_options[49m[43m [49m[38;5;129;43;01mor[39;49;00m[43m [49m[43mNO_OPTIONS[49m[43m,[49m
+    [1;32m   1422[0m [43m    [49m[43m)[49m
+
+    File [0;32m~/.pyenv/versions/3.13.1/envs/nbdev313/lib/python3.13/site-packages/sqlalchemy/sql/elements.py:515[0m, in [0;36mClauseElement._execute_on_connection[0;34m(self, connection, distilled_params, execution_options)[0m
+    [1;32m    513[0m     [38;5;28;01mif[39;00m TYPE_CHECKING:
+    [1;32m    514[0m         [38;5;28;01massert[39;00m [38;5;28misinstance[39m([38;5;28mself[39m, Executable)
+    [0;32m--> 515[0m     [38;5;28;01mreturn[39;00m [43mconnection[49m[38;5;241;43m.[39;49m[43m_execute_clauseelement[49m[43m([49m
+    [1;32m    516[0m [43m        [49m[38;5;28;43mself[39;49m[43m,[49m[43m [49m[43mdistilled_params[49m[43m,[49m[43m [49m[43mexecution_options[49m
+    [1;32m    517[0m [43m    [49m[43m)[49m
+    [1;32m    518[0m [38;5;28;01melse[39;00m:
+    [1;32m    519[0m     [38;5;28;01mraise[39;00m exc[38;5;241m.[39mObjectNotExecutableError([38;5;28mself[39m)
+
+    File [0;32m~/.pyenv/versions/3.13.1/envs/nbdev313/lib/python3.13/site-packages/sqlalchemy/engine/base.py:1640[0m, in [0;36mConnection._execute_clauseelement[0;34m(self, elem, distilled_parameters, execution_options)[0m
+    [1;32m   1628[0m compiled_cache: Optional[CompiledCacheType] [38;5;241m=[39m execution_options[38;5;241m.[39mget(
+    [1;32m   1629[0m     [38;5;124m"[39m[38;5;124mcompiled_cache[39m[38;5;124m"[39m, [38;5;28mself[39m[38;5;241m.[39mengine[38;5;241m.[39m_compiled_cache
+    [1;32m   1630[0m )
+    [1;32m   1632[0m compiled_sql, extracted_params, cache_hit [38;5;241m=[39m elem[38;5;241m.[39m_compile_w_cache(
+    [1;32m   1633[0m     dialect[38;5;241m=[39mdialect,
+    [1;32m   1634[0m     compiled_cache[38;5;241m=[39mcompiled_cache,
+    [0;32m   (...)[0m
+    [1;32m   1638[0m     linting[38;5;241m=[39m[38;5;28mself[39m[38;5;241m.[39mdialect[38;5;241m.[39mcompiler_linting [38;5;241m|[39m compiler[38;5;241m.[39mWARN_LINTING,
+    [1;32m   1639[0m )
+    [0;32m-> 1640[0m ret [38;5;241m=[39m [38;5;28;43mself[39;49m[38;5;241;43m.[39;49m[43m_execute_context[49m[43m([49m
+    [1;32m   1641[0m [43m    [49m[43mdialect[49m[43m,[49m
+    [1;32m   1642[0m [43m    [49m[43mdialect[49m[38;5;241;43m.[39;49m[43mexecution_ctx_cls[49m[38;5;241;43m.[39;49m[43m_init_compiled[49m[43m,[49m
+    [1;32m   1643[0m [43m    [49m[43mcompiled_sql[49m[43m,[49m
+    [1;32m   1644[0m [43m    [49m[43mdistilled_parameters[49m[43m,[49m
+    [1;32m   1645[0m [43m    [49m[43mexecution_options[49m[43m,[49m
+    [1;32m   1646[0m [43m    [49m[43mcompiled_sql[49m[43m,[49m
+    [1;32m   1647[0m [43m    [49m[43mdistilled_parameters[49m[43m,[49m
+    [1;32m   1648[0m [43m    [49m[43melem[49m[43m,[49m
+    [1;32m   1649[0m [43m    [49m[43mextracted_params[49m[43m,[49m
+    [1;32m   1650[0m [43m    [49m[43mcache_hit[49m[38;5;241;43m=[39;49m[43mcache_hit[49m[43m,[49m
+    [1;32m   1651[0m [43m[49m[43m)[49m
+    [1;32m   1652[0m [38;5;28;01mif[39;00m has_events:
+    [1;32m   1653[0m     [38;5;28mself[39m[38;5;241m.[39mdispatch[38;5;241m.[39mafter_execute(
+    [1;32m   1654[0m         [38;5;28mself[39m,
+    [1;32m   1655[0m         elem,
+    [0;32m   (...)[0m
+    [1;32m   1659[0m         ret,
+    [1;32m   1660[0m     )
+
+    File [0;32m~/.pyenv/versions/3.13.1/envs/nbdev313/lib/python3.13/site-packages/sqlalchemy/engine/base.py:1846[0m, in [0;36mConnection._execute_context[0;34m(self, dialect, constructor, statement, parameters, execution_options, *args, **kw)[0m
+    [1;32m   1844[0m     [38;5;28;01mreturn[39;00m [38;5;28mself[39m[38;5;241m.[39m_exec_insertmany_context(dialect, context)
+    [1;32m   1845[0m [38;5;28;01melse[39;00m:
+    [0;32m-> 1846[0m     [38;5;28;01mreturn[39;00m [38;5;28;43mself[39;49m[38;5;241;43m.[39;49m[43m_exec_single_context[49m[43m([49m
+    [1;32m   1847[0m [43m        [49m[43mdialect[49m[43m,[49m[43m [49m[43mcontext[49m[43m,[49m[43m [49m[43mstatement[49m[43m,[49m[43m [49m[43mparameters[49m
+    [1;32m   1848[0m [43m    [49m[43m)[49m
+
+    File [0;32m~/.pyenv/versions/3.13.1/envs/nbdev313/lib/python3.13/site-packages/sqlalchemy/engine/base.py:1986[0m, in [0;36mConnection._exec_single_context[0;34m(self, dialect, context, statement, parameters)[0m
+    [1;32m   1983[0m     result [38;5;241m=[39m context[38;5;241m.[39m_setup_result_proxy()
+    [1;32m   1985[0m [38;5;28;01mexcept[39;00m [38;5;167;01mBaseException[39;00m [38;5;28;01mas[39;00m e:
+    [0;32m-> 1986[0m     [38;5;28;43mself[39;49m[38;5;241;43m.[39;49m[43m_handle_dbapi_exception[49m[43m([49m
+    [1;32m   1987[0m [43m        [49m[43me[49m[43m,[49m[43m [49m[43mstr_statement[49m[43m,[49m[43m [49m[43meffective_parameters[49m[43m,[49m[43m [49m[43mcursor[49m[43m,[49m[43m [49m[43mcontext[49m
+    [1;32m   1988[0m [43m    [49m[43m)[49m
+    [1;32m   1990[0m [38;5;28;01mreturn[39;00m result
+
+    File [0;32m~/.pyenv/versions/3.13.1/envs/nbdev313/lib/python3.13/site-packages/sqlalchemy/engine/base.py:2355[0m, in [0;36mConnection._handle_dbapi_exception[0;34m(self, e, statement, parameters, cursor, context, is_sub_exec)[0m
+    [1;32m   2353[0m [38;5;28;01melif[39;00m should_wrap:
+    [1;32m   2354[0m     [38;5;28;01massert[39;00m sqlalchemy_exception [38;5;129;01mis[39;00m [38;5;129;01mnot[39;00m [38;5;28;01mNone[39;00m
+    [0;32m-> 2355[0m     [38;5;28;01mraise[39;00m sqlalchemy_exception[38;5;241m.[39mwith_traceback(exc_info[[38;5;241m2[39m]) [38;5;28;01mfrom[39;00m [38;5;21;01me[39;00m
+    [1;32m   2356[0m [38;5;28;01melse[39;00m:
+    [1;32m   2357[0m     [38;5;28;01massert[39;00m exc_info[[38;5;241m1[39m] [38;5;129;01mis[39;00m [38;5;129;01mnot[39;00m [38;5;28;01mNone[39;00m
+
+    File [0;32m~/.pyenv/versions/3.13.1/envs/nbdev313/lib/python3.13/site-packages/sqlalchemy/engine/base.py:1967[0m, in [0;36mConnection._exec_single_context[0;34m(self, dialect, context, statement, parameters)[0m
+    [1;32m   1965[0m                 [38;5;28;01mbreak[39;00m
+    [1;32m   1966[0m     [38;5;28;01mif[39;00m [38;5;129;01mnot[39;00m evt_handled:
+    [0;32m-> 1967[0m         [38;5;28;43mself[39;49m[38;5;241;43m.[39;49m[43mdialect[49m[38;5;241;43m.[39;49m[43mdo_execute[49m[43m([49m
+    [1;32m   1968[0m [43m            [49m[43mcursor[49m[43m,[49m[43m [49m[43mstr_statement[49m[43m,[49m[43m [49m[43meffective_parameters[49m[43m,[49m[43m [49m[43mcontext[49m
+    [1;32m   1969[0m [43m        [49m[43m)[49m
+    [1;32m   1971[0m [38;5;28;01mif[39;00m [38;5;28mself[39m[38;5;241m.[39m_has_events [38;5;129;01mor[39;00m [38;5;28mself[39m[38;5;241m.[39mengine[38;5;241m.[39m_has_events:
+    [1;32m   1972[0m     [38;5;28mself[39m[38;5;241m.[39mdispatch[38;5;241m.[39mafter_cursor_execute(
+    [1;32m   1973[0m         [38;5;28mself[39m,
+    [1;32m   1974[0m         cursor,
+    [0;32m   (...)[0m
+    [1;32m   1978[0m         context[38;5;241m.[39mexecutemany,
+    [1;32m   1979[0m     )
+
+    File [0;32m~/.pyenv/versions/3.13.1/envs/nbdev313/lib/python3.13/site-packages/sqlalchemy/engine/default.py:941[0m, in [0;36mDefaultDialect.do_execute[0;34m(self, cursor, statement, parameters, context)[0m
+    [1;32m    940[0m [38;5;28;01mdef[39;00m [38;5;21mdo_execute[39m([38;5;28mself[39m, cursor, statement, parameters, context[38;5;241m=[39m[38;5;28;01mNone[39;00m):
+    [0;32m--> 941[0m     [43mcursor[49m[38;5;241;43m.[39;49m[43mexecute[49m[43m([49m[43mstatement[49m[43m,[49m[43m [49m[43mparameters[49m[43m)[49m
+
+    [0;31mIntegrityError[0m: (sqlite3.IntegrityError) UNIQUE constraint failed: friend.id
+    [SQL: INSERT INTO friend (id, family_name, first_name, email, phone, linkedin, twitter) VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING id, family_name, first_name, email, phone, linkedin, twitter]
+    [parameters: ('1', 'doo', 'john', 'john@doo.com', '00000000', 'linkedin', 'twitter')]
+    (Background on this error at: https://sqlalche.me/e/20/gkpj)
+
+Let’s remove the previous object.
+
+``` python
+repo.remove(f1)
+```
+
+    1 deleted
